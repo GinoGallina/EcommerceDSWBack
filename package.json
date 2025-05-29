@@ -67,8 +67,6 @@
 		"express-oauth2-jwt-bearer": "^1.6.0",
 		"jsonwebtoken": "^9.0.2",
 		"jwks-rsa": "^3.1.0",
-		"node-fetch": "^3.3.2",
-		"openai": "^4.96.2",
 		"pg": "^8.14.1",
 		"reflect-metadata": "^0.2.2",
 		"tsyringe": "^4.10.0",
