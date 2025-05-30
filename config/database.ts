@@ -1,13 +1,13 @@
-import "./env.js";
+import "./env";
 import { DataSource } from "typeorm";
-import { Category } from "../models/database/Category.js";
-import { Product } from "../models/database/Product.js";
-import { User } from "../models/database/User.js";
-import { Role } from "../models/database/Role.js";
-import { PaymentType } from "../models/database/PaymentType.js";
-import { Order } from "../models/database/Order.js";
-import { OrderItem } from "../models/database/OrderItem.js";
-import { Review } from "../models/database/Review.js";
+import { Category } from "../models/database/Category.ts";
+import { Product } from "../models/database/Product.ts";
+import { User } from "../models/database/User.ts";
+import { Role } from "../models/database/Role.ts";
+import { PaymentType } from "../models/database/PaymentType.ts";
+import { Order } from "../models/database/Order.ts";
+import { OrderItem } from "../models/database/OrderItem.ts";
+import { Review } from "../models/database/Review.ts";
 
 let db = new DataSource({
 	type: "postgres",

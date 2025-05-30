@@ -14,7 +14,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

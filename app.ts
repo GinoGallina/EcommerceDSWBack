@@ -3,7 +3,7 @@ import express, { json } from "express";
 import cors from "cors";
 
 // Dont env config
-import "./config/env.js";
+import "./config/env";
 
 // Database config
 import { createDatabaseIfNotExists, db } from "./config/database.js";

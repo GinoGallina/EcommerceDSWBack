@@ -8,7 +8,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
-		"build": "tsc -p ./tsconfig.json",
+		"build": "tsc -p ./tsconfig.json && tsc-alias",
 		"dev": "tsx watch app.ts",
 		"start": "node dist/app.js",
 		"format": "prettier --write .",
@@ -43,6 +43,7 @@
 		"prettier": "^3.5.3",
 		"standard": "^17.1.0",
 		"ts-jest": "^29.3.3",
+		"tsc-alias": "^1.8.16",
 		"tsc-watch": "^6.0.4",
 		"tsx": "^4.19.3",
 		"typescript": "^5.2.2"
