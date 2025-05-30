@@ -1,4 +1,4 @@
-import "./env";
+import "./env.js";
 import { DataSource } from "typeorm";
 import { Category } from "../models/database/Category.js";
 import { Product } from "../models/database/Product.js";

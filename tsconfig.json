@@ -16,6 +16,6 @@
     "noImplicitAny": true,
     "skipDefaultLibCheck": true
   },
-  "include": ["src/**/*", "**/*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }
