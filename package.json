@@ -10,6 +10,7 @@
 		"test:coverage": "jest --coverage",
 		"build": "tsc -p ./tsconfig.json",
 		"dev": "tsx watch app.ts",
+		"start": "node dist/app.js",
 		"format": "prettier --write .",
 		"lint": "eslint . --ext .ts,.js,.tsx,.jsx"
 	},
