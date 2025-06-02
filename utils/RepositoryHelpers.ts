@@ -1,4 +1,4 @@
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 
 export function createValidOrderColumns<T>(columns: (keyof T)[]): Record<string, keyof T> {
 	return Object.fromEntries(columns.map((c) => [c.toString().toLowerCase(), c])) as Record<string, keyof T>;

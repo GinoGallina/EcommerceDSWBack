@@ -6,21 +6,21 @@ import {
 	IUserRegisterResponse,
 	IUserResponse,
 	IUserUpdateRequest,
-} from "../types/IUser.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
-import { UserRepository } from "../repository/UserRepository.js";
-import { validateFields } from "../utils/ServiceHelpers.js";
-import { Role } from "../models/database/Role.js";
-import { RoleEnum } from "../types/IRole.js";
+} from "../types/IUser";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
+import { UserRepository } from "../repository/UserRepository";
+import { validateFields } from "../utils/ServiceHelpers";
+import { Role } from "../models/database/Role";
+import { RoleEnum } from "../types/IRole";
 import bcrypt from "bcrypt";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { IGetCombo } from "../types/shared/IGetCombo.js";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { IGetCombo } from "../types/shared/IGetCombo";
 import { inject, injectable } from "tsyringe";
-import { User } from "../models/database/User.js";
-import { BaseService } from "./BaseService.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
+import { User } from "../models/database/User";
+import { BaseService } from "./BaseService";
+import { formatDateToArgentina } from "../utils/DateFormatter";
 
 @injectable()
 export class UserService extends BaseService<User> {

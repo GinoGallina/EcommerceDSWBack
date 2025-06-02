@@ -1,8 +1,8 @@
 import { DataSource, QueryRunner } from "typeorm";
-import { ProductRepository } from "../repository/ProductRepository.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
+import { ProductRepository } from "../repository/ProductRepository";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
 import {
 	IProductCreateRequest,
 	IProductGetAllRequest,
@@ -11,17 +11,17 @@ import {
 	IProductGetOneResponse,
 	IProductGetDetailsResponse,
 	IMyProductGetAllResponse,
-} from "../types/IProduct.js";
-import { validateFields } from "../utils/ServiceHelpers.js";
-import { CategoryService } from "./CategoryService.js";
-import { UserService } from "./UserService.js";
+} from "../types/IProduct";
+import { validateFields } from "../utils/ServiceHelpers";
+import { CategoryService } from "./CategoryService";
+import { UserService } from "./UserService";
 import { injectable, inject } from "tsyringe";
-import { BaseService } from "./BaseService.js";
-import { Product } from "../models/database/Product.js";
-import { Review } from "../models/database/Review.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { AuthService } from "./AuthService.js";
+import { BaseService } from "./BaseService";
+import { Product } from "../models/database/Product";
+import { Review } from "../models/database/Review";
+import { formatDateToArgentina } from "../utils/DateFormatter";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { AuthService } from "./AuthService";
 
 @injectable()
 export class ProductService extends BaseService<Product> {

@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm";
-import { Role } from "../models/database/Role.js";
-import { User } from "../models/database/User.js";
+import { Role } from "../models/database/Role";
+import { User } from "../models/database/User";
 import bcrypt from "bcrypt";
-import { RoleEnum } from "../types/IRole.js";
+import { RoleEnum } from "../types/IRole";
 
 export async function seedDatabase(db: DataSource) {
 	const roleRepo = db.getRepository(Role);

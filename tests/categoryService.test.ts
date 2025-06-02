@@ -1,7 +1,7 @@
-import { CategoryService } from "../services/CategoryService.js";
-import { CategoryRepository } from "../repository/CategoryRepository.js";
+import { CategoryService } from "../services/CategoryService";
+import { CategoryRepository } from "../repository/CategoryRepository";
 import { DataSource, QueryRunner } from "typeorm";
-// import { Category } from "../models/database/Category.js";
+// import { Category } from "../models/database/Category";
 
 const mockQueryRunner = {
 	connect: jest.fn(),

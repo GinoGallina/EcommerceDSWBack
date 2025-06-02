@@ -1,7 +1,7 @@
-import { IBaseResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse } from "../utils/ResponseHelpers.js";
-import { IGetCombo } from "../types/shared/IGetCombo.js";
-import { RoleRepository } from "../repository/RoleRepository.js";
+import { IBaseResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse } from "../utils/ResponseHelpers";
+import { IGetCombo } from "../types/shared/IGetCombo";
+import { RoleRepository } from "../repository/RoleRepository";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

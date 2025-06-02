@@ -1,11 +1,11 @@
 import { FindOptionsWhere, IsNull, Repository } from "typeorm";
-import { Order } from "../models/database/Order.js";
-import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+import { Order } from "../models/database/Order";
+import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { AuthService } from "../services/AuthService.js";
-import { RoleEnum } from "../types/IRole.js";
-import { BaseRepository } from "./BaseRepository.js";
+import { AuthService } from "../services/AuthService";
+import { RoleEnum } from "../types/IRole";
+import { BaseRepository } from "./BaseRepository";
 
 @injectable()
 export class OrderRepository extends BaseRepository<Order> {

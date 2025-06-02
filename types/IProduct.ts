@@ -1,5 +1,5 @@
-import { IGenericGetAllRequest } from "./shared/IBaseRequest.js";
-import { IGenericGetAllResponse } from "./shared/IBaseResponse.js";
+import { IGenericGetAllRequest } from "./shared/IBaseRequest";
+import { IGenericGetAllResponse } from "./shared/IBaseResponse";
 
 // Get All My Products
 export interface IMyProductGetAllResponse extends IGenericGetAllResponse {

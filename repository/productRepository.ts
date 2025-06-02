@@ -1,12 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import { FindOptionsWhere, In, IsNull, LessThanOrEqual, Like, MoreThan, MoreThanOrEqual, Repository } from "typeorm";
-import { Product } from "../models/database/Product.js";
-import { IProductGetAllRequest } from "../types/IProduct.js";
-import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers.js";
-import { AuthService } from "../services/AuthService.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { RoleEnum } from "../types/IRole.js";
-import { BaseRepository } from "./BaseRepository.js";
+import { Product } from "../models/database/Product";
+import { IProductGetAllRequest } from "../types/IProduct";
+import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
+import { AuthService } from "../services/AuthService";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { RoleEnum } from "../types/IRole";
+import { BaseRepository } from "./BaseRepository";
 
 @injectable()
 export class ProductRepository extends BaseRepository<Product> {

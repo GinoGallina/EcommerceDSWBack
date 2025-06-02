@@ -1,10 +1,10 @@
 import { EntityManager, FindOptionsWhere, In, IsNull, Like, Repository } from "typeorm";
-import { User } from "../models/database/User.js";
-import { IUserGetAllRequest, IUserGetComboRequest } from "../types/IUser.js";
-import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers.js";
-import { GetComboItem } from "../types/shared/IGetCombo.js";
+import { User } from "../models/database/User";
+import { IUserGetAllRequest, IUserGetComboRequest } from "../types/IUser";
+import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
+import { GetComboItem } from "../types/shared/IGetCombo";
 import { inject, injectable } from "tsyringe";
-import { BaseRepository } from "./BaseRepository.js";
+import { BaseRepository } from "./BaseRepository";
 
 @injectable()
 export class UserRepository extends BaseRepository<User> {

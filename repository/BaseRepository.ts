@@ -7,7 +7,7 @@ import {
 	IsNull,
 	Repository,
 } from "typeorm";
-import { BaseModel } from "../models/database/BaseModel.js";
+import { BaseModel } from "../models/database/BaseModel";
 
 export class BaseRepository<T extends BaseModel> {
 	constructor(

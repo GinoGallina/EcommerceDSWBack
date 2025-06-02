@@ -1,4 +1,4 @@
-import { RoleEnum } from "../IRole.js";
+import { RoleEnum } from "../IRole";
 
 export interface IToken {
 	user: IUserToken;

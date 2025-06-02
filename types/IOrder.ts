@@ -1,5 +1,5 @@
-import { IOrderItemCreateRequest, OrderItemEnum } from "./IOrderItem.js";
-import { IGenericGetAllResponse } from "./shared/IBaseResponse.js";
+import { IOrderItemCreateRequest, OrderItemEnum } from "./IOrderItem";
+import { IGenericGetAllResponse } from "./shared/IBaseResponse";
 
 // Order status
 export enum OrderEnum {

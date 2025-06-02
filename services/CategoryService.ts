@@ -1,15 +1,15 @@
 import { DataSource, QueryRunner } from "typeorm";
-import { CategoryRepository } from "../repository/CategoryRepository.js";
-import { ICategoryCreateRequest, ICategoryGetAllResponse, ICategoryResponse, ICategoryUpdateRequest } from "../types/ICategory.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
-import { IGetCombo } from "../types/shared/IGetCombo.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+import { CategoryRepository } from "../repository/CategoryRepository";
+import { ICategoryCreateRequest, ICategoryGetAllResponse, ICategoryResponse, ICategoryUpdateRequest } from "../types/ICategory";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
+import { IGetCombo } from "../types/shared/IGetCombo";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { Category } from "../models/database/Category.js";
-import { BaseService } from "./BaseService.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
+import { Category } from "../models/database/Category";
+import { BaseService } from "./BaseService";
+import { formatDateToArgentina } from "../utils/DateFormatter";
 
 @injectable()
 export class CategoryService extends BaseService<Category> {

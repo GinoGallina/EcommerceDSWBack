@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { CategoryRouter } from "./CategoryRoutes.js";
-import { ProductRouter } from "./ProductRoutes.js";
-import { UserRouter } from "./UserRoutes.js";
-import { AuthRouter } from "./AuthRoutes.js";
-import { RoleRouter } from "./RoleRoutes.js";
-import { PaymentTypeRouter } from "./PaymentTypeRoutes.js";
-import { OrderRouter } from "./OrderRoutes.js";
-import { ReviewRouter } from "./ReviewRoutes.js";
+import { CategoryRouter } from "./CategoryRoutes";
+import { ProductRouter } from "./ProductRoutes";
+import { UserRouter } from "./UserRoutes";
+import { AuthRouter } from "./AuthRoutes";
+import { RoleRouter } from "./RoleRoutes";
+import { PaymentTypeRouter } from "./PaymentTypeRoutes";
+import { OrderRouter } from "./OrderRoutes";
+import { ReviewRouter } from "./ReviewRoutes";
 
 export default () => {
 	const router = Router();

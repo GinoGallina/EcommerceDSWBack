@@ -9,13 +9,13 @@ import "./config/env";
 import { createDatabaseIfNotExists, db } from "./config/database";
 
 // Routes config
-import createRoutes from "./routes/index.js";
-import { seedDatabase } from "./utils/SeederHelper.js";
-import { authenticateJWT } from "./middleware/Jwt/Authenticate.js";
+import createRoutes from "./routes/index";
+import { seedDatabase } from "./utils/SeederHelper";
+import { authenticateJWT } from "./middleware/Jwt/Authenticate";
 
 // Inyectables
-import { registerInyectables } from "./config/inyectabes.js";
-import { ContextService } from "./services/ContextService.js";
+import { registerInyectables } from "./config/inyectabes";
+import { ContextService } from "./services/ContextService";
 
 // Check required environment variables
 const requiredEnvVars = ["PORT", "DB_HOST", "DB_PORT", "DB_USER", "DB_PASS", "DB_NAME"];

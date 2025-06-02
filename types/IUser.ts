@@ -1,6 +1,6 @@
-import { RoleEnum } from "./IRole.js";
-import { IGenericGetAllRequest } from "./shared/IBaseRequest.js";
-import { IGenericGetAllResponse } from "./shared/IBaseResponse.js";
+import { RoleEnum } from "./IRole";
+import { IGenericGetAllRequest } from "./shared/IBaseRequest";
+import { IGenericGetAllResponse } from "./shared/IBaseResponse";
 
 // Get All
 export interface IUserGetAllResponse extends IGenericGetAllResponse {

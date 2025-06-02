@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { ProductController } from "../controllers/ProductController.js";
+import { ProductController } from "../controllers/ProductController";
 import { container } from "tsyringe";
-import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles.js";
-import { RoleEnum } from "../types/IRole.js";
+import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles";
+import { RoleEnum } from "../types/IRole";
 
 export const ProductRouter = () => {
 	const router = Router();

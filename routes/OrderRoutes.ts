@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { container } from "tsyringe";
-import { OrderController } from "../controllers/OrderController.js";
+import { OrderController } from "../controllers/OrderController";
 
 export const OrderRouter = () => {
 	const router = Router();

@@ -1,4 +1,4 @@
-import { IBaseResponse } from "./IBaseResponse.js";
+import { IBaseResponse } from "./IBaseResponse";
 
 export interface IBaseCRUDService<
 	TGetAllQuery,

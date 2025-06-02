@@ -1,6 +1,6 @@
-import { OrderService } from "../services/OrderService.js";
+import { OrderService } from "../services/OrderService";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
+import { BaseController } from "./BaseController";
 import {
 	IOrderCancelProductRequest,
 	IOrderCreateRequest,
@@ -8,9 +8,9 @@ import {
 	IOrderGetOneResponse,
 	IOrderResponse,
 	IOrderUpdateRequest,
-} from "../types/IOrder.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+} from "../types/IOrder";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 import { Request, Response } from "express";
 
 @injectable()

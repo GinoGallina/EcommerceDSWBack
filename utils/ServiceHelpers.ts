@@ -1,5 +1,5 @@
 import { QueryRunner } from "typeorm";
-import { createErrorResponse } from "./ResponseHelpers.js";
+import { createErrorResponse } from "./ResponseHelpers";
 
 interface ValidationRules {
 	condition: boolean;

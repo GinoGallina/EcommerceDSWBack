@@ -5,16 +5,16 @@ import {
 	IReviewGetAllResponse,
 	IReviewResponse,
 	IReviewUpdateRequest,
-} from "../types/IReview.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
+} from "../types/IReview";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
 import { inject, injectable } from "tsyringe";
-import { BaseService } from "./BaseService.js";
-import { Review } from "../models/database/Review.js";
-import { ReviewRepository } from "../repository/ReviewRepository.js";
-import { AuthService } from "./AuthService.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
+import { BaseService } from "./BaseService";
+import { Review } from "../models/database/Review";
+import { ReviewRepository } from "../repository/ReviewRepository";
+import { AuthService } from "./AuthService";
+import { formatDateToArgentina } from "../utils/DateFormatter";
 
 @injectable()
 export class ReviewService extends BaseService<Review> {

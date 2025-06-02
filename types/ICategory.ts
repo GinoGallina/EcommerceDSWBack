@@ -1,4 +1,4 @@
-import { IGenericGetAllResponse } from "./shared/IBaseResponse.js";
+import { IGenericGetAllResponse } from "./shared/IBaseResponse";
 
 // Get All
 export interface ICategoryGetAllResponse extends IGenericGetAllResponse {

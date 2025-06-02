@@ -1,9 +1,9 @@
 import { IsNull, Repository } from "typeorm";
-import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers.js";
+import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
 import { inject, injectable } from "tsyringe";
-import { Review } from "../models/database/Review.js";
-import { IReviewGetAllRequest } from "../types/IReview.js";
-import { BaseRepository } from "./BaseRepository.js";
+import { Review } from "../models/database/Review";
+import { IReviewGetAllRequest } from "../types/IReview";
+import { BaseRepository } from "./BaseRepository";
 
 @injectable()
 export class ReviewRepository extends BaseRepository<Review> {

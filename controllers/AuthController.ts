@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AuthService } from "../services/AuthService.js";
-import { ILoginRequest, IRegisterRequest } from "../types/IAuth.js";
+import { AuthService } from "../services/AuthService";
+import { ILoginRequest, IRegisterRequest } from "../types/IAuth";
 import { inject, injectable } from "tsyringe";
 @injectable()
 export class AuthController {

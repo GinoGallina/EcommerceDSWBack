@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { container } from "tsyringe";
-import { UserController } from "../controllers/UserController.js";
-import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles.js";
-import { RoleEnum } from "../types/IRole.js";
+import { UserController } from "../controllers/UserController";
+import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles";
+import { RoleEnum } from "../types/IRole";
 
 export const UserRouter = () => {
 	const router = Router();

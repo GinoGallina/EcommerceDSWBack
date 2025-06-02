@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import { ProductService } from "../services/ProductService.js";
+import { ProductService } from "../services/ProductService";
 import {
 	IProductCreateRequest,
 	IProductGetAllResponse,
 	IProductGetOneResponse,
 	IProductResponse,
 	IProductUpdateRequest,
-} from "../types/IProduct.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+} from "../types/IProduct";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+import { BaseController } from "./BaseController";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 
 @injectable()
 export class ProductController extends BaseController<

@@ -1,4 +1,4 @@
-import { IToken } from "./shared/IToken.js";
+import { IToken } from "./shared/IToken";
 
 // Login
 export interface ILoginRequest {

@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from "typeorm";
-import { BaseModel } from "./BaseModel.js";
-import { Order } from "./Order.js";
+import { BaseModel } from "./BaseModel";
+import { Order } from "./Order";
 
 @Entity("PaymentType")
 export class PaymentType extends BaseModel {

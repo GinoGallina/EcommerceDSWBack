@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
-import { BaseModel } from "./BaseModel.js";
-import { User } from "./User.js";
-import { PaymentType } from "./PaymentType.js";
-import { OrderItem } from "./OrderItem.js";
-import { OrderEnum } from "../../types/IOrder.js";
+import { BaseModel } from "./BaseModel";
+import { User } from "./User";
+import { PaymentType } from "./PaymentType";
+import { OrderItem } from "./OrderItem";
+import { OrderEnum } from "../../types/IOrder";
 
 @Entity("Order")
 export class Order extends BaseModel {

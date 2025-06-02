@@ -1,17 +1,17 @@
 import { DataSource, In, Repository } from "typeorm";
-import { IBaseResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
-import { ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from "../types/IAuth.js";
-import { UserService } from "./UserService.js";
-import { Role } from "../models/database/Role.js";
-import { RoleEnum } from "../types/IRole.js";
+import { IBaseResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
+import { ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from "../types/IAuth";
+import { UserService } from "./UserService";
+import { Role } from "../models/database/Role";
+import { RoleEnum } from "../types/IRole";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { IUserToken } from "../types/shared/IToken.js";
-import { ContextService } from "./ContextService.js";
-import { UserRepository } from "../repository/UserRepository.js";
+import { IUserToken } from "../types/shared/IToken";
+import { ContextService } from "./ContextService";
+import { UserRepository } from "../repository/UserRepository";
 
 @injectable()
 export class AuthService {

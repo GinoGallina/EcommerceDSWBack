@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/UserService.js";
-import { IUserCreateRequest, IUserGetAllResponse, IUserGetComboRequest, IUserResponse, IUserUpdateRequest } from "../types/IUser.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+import { UserService } from "../services/UserService";
+import { IUserCreateRequest, IUserGetAllResponse, IUserGetComboRequest, IUserResponse, IUserUpdateRequest } from "../types/IUser";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+import { BaseController } from "./BaseController";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 
 @injectable()
 export class UserController extends BaseController<

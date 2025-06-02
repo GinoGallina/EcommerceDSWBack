@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RoleService } from "../services/RoleService.js";
+import { RoleService } from "../services/RoleService";
 import { inject, injectable } from "tsyringe";
 @injectable()
 export class RoleController {

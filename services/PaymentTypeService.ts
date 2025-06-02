@@ -1,20 +1,20 @@
 import { DataSource, QueryRunner } from "typeorm";
-import { PaymentTypeRepository } from "../repository/PaymentTypeRepository.js";
+import { PaymentTypeRepository } from "../repository/PaymentTypeRepository";
 import {
 	IPaymentTypeCreateRequest,
 	IPaymentTypeGetAllResponse,
 	IPaymentTypeResponse,
 	IPaymentTypeUpdateRequest,
-} from "../types/IPaymentType.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
-import { IGetCombo } from "../types/shared/IGetCombo.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+} from "../types/IPaymentType";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
+import { IGetCombo } from "../types/shared/IGetCombo";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseService } from "./BaseService.js";
-import { PaymentType } from "../models/database/PaymentType.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
+import { BaseService } from "./BaseService";
+import { PaymentType } from "../models/database/PaymentType";
+import { formatDateToArgentina } from "../utils/DateFormatter";
 
 @injectable()
 export class PaymentTypeService extends BaseService<PaymentType> {

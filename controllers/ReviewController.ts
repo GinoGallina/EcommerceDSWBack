@@ -4,11 +4,11 @@ import {
 	IReviewGetAllResponse,
 	IReviewResponse,
 	IReviewUpdateRequest,
-} from "../types/IReview.js";
+} from "../types/IReview";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
-import { ReviewService } from "../services/ReviewService.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+import { BaseController } from "./BaseController";
+import { ReviewService } from "../services/ReviewService";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 
 @injectable()
 export class ReviewController extends BaseController<

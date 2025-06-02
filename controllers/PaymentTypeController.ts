@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { PaymentTypeService } from "../services/PaymentTypeService.js";
+import { PaymentTypeService } from "../services/PaymentTypeService";
 import {
 	IPaymentTypeCreateRequest,
 	IPaymentTypeGetAllResponse,
 	IPaymentTypeResponse,
 	IPaymentTypeUpdateRequest,
-} from "../types/IPaymentType.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+} from "../types/IPaymentType";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+import { BaseController } from "./BaseController";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 
 @injectable()
 export class PaymentTypeController extends BaseController<

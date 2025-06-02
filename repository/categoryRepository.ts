@@ -1,10 +1,10 @@
-import { Category } from "../models/database/Category.js";
+import { Category } from "../models/database/Category";
 import { FindOptionsWhere, IsNull, Like, Repository } from "typeorm";
-import { GetComboItem } from "../types/shared/IGetCombo.js";
-import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
+import { GetComboItem } from "../types/shared/IGetCombo";
+import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseRepository } from "./BaseRepository.js";
+import { BaseRepository } from "./BaseRepository";
 
 @injectable()
 export class CategoryRepository extends BaseRepository<Category> {

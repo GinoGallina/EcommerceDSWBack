@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IBaseCRUDService } from "../types/shared/IBaseCRUDService.js";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 export class BaseController<
 	TService extends IBaseCRUDService<

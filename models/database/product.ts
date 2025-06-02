@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
-import { BaseModel } from "./BaseModel.js";
-import { Category } from "./Category.js";
-import { User } from "./User.js";
-import { OrderItem } from "./OrderItem.js";
-import { Review } from "./Review.js";
+import { BaseModel } from "./BaseModel";
+import { Category } from "./Category";
+import { User } from "./User";
+import { OrderItem } from "./OrderItem";
+import { Review } from "./Review";
 
 @Entity("Product")
 export class Product extends BaseModel {

@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { CategoryService } from "../services/CategoryService.js";
-import { ICategoryCreateRequest, ICategoryGetAllResponse, ICategoryResponse, ICategoryUpdateRequest } from "../types/ICategory.js";
+import { CategoryService } from "../services/CategoryService";
+import { ICategoryCreateRequest, ICategoryGetAllResponse, ICategoryResponse, ICategoryUpdateRequest } from "../types/ICategory";
 import { inject, injectable } from "tsyringe";
-import { BaseController } from "./BaseController.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
+import { BaseController } from "./BaseController";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 
 @injectable()
 export class CategoryController extends BaseController<

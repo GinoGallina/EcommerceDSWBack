@@ -1,7 +1,7 @@
 import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { BaseModel } from "./BaseModel.js";
-import { Product } from "./Product.js";
-import { User } from "./User.js";
+import { BaseModel } from "./BaseModel";
+import { Product } from "./Product";
+import { User } from "./User";
 
 @Entity("Review")
 export class Review extends BaseModel {

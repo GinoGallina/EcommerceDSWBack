@@ -1,6 +1,6 @@
 import { EntityManager, IsNull, Repository } from "typeorm";
-import { GetComboItem } from "../types/shared/IGetCombo.js";
-import { Role } from "../models/database/Role.js";
+import { GetComboItem } from "../types/shared/IGetCombo";
+import { Role } from "../models/database/Role";
 import { inject, injectable } from "tsyringe";
 @injectable()
 export class RoleRepository {

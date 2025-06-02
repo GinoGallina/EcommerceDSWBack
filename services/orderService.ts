@@ -1,8 +1,8 @@
 import { DataSource, In } from "typeorm";
-import { OrderRepository } from "../repository/OrderRepository.js";
-import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers.js";
-import { Messages } from "../const/Messages.js";
+import { OrderRepository } from "../repository/OrderRepository";
+import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
+import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
+import { Messages } from "../const/Messages";
 import {
 	IOrderCancelOrderResponse,
 	IOrderCancelProductRequest,
@@ -11,16 +11,16 @@ import {
 	IOrderGetOneResponse,
 	IOrderResponse,
 	OrderEnum,
-} from "../types/IOrder.js";
+} from "../types/IOrder";
 import { inject, injectable } from "tsyringe";
-import { Order } from "../models/database/Order.js";
-import { OrderItemEnum } from "../types/IOrderItem.js";
-import { AuthService } from "./AuthService.js";
-import { IGenericGetAllRequest } from "../types/shared/IBaseRequest.js";
-import { RoleEnum } from "../types/IRole.js";
-import { formatDateToArgentina } from "../utils/DateFormatter.js";
-import { ProductRepository } from "../repository/ProductRepository.js";
-import { PaymentTypeRepository } from "../repository/PaymentTypeRepository.js";
+import { Order } from "../models/database/Order";
+import { OrderItemEnum } from "../types/IOrderItem";
+import { AuthService } from "./AuthService";
+import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
+import { RoleEnum } from "../types/IRole";
+import { formatDateToArgentina } from "../utils/DateFormatter";
+import { ProductRepository } from "../repository/ProductRepository";
+import { PaymentTypeRepository } from "../repository/PaymentTypeRepository";
 
 @injectable()
 export class OrderService {

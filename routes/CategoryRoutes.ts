@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { CategoryController } from "../controllers/CategoryController.js";
+import { CategoryController } from "../controllers/CategoryController";
 import { container } from "tsyringe";
-import { RoleEnum } from "../types/IRole.js";
-import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles.js";
+import { RoleEnum } from "../types/IRole";
+import { authorizeRoles } from "../middleware/Roles/AuthorizeRoles";
 
 export const CategoryRouter = () => {
 	const router = Router();

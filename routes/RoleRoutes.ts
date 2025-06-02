@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { RoleController } from "../controllers/RoleController.js";
+import { RoleController } from "../controllers/RoleController";
 import { container } from "tsyringe";
 
 export const RoleRouter = () => {

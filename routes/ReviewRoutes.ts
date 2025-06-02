@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { container } from "tsyringe";
-import { ReviewController } from "../controllers/ReviewController.js";
+import { ReviewController } from "../controllers/ReviewController";
 
 export const ReviewRouter = () => {
 	const router = Router();
