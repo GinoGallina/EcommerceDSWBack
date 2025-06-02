@@ -264,7 +264,7 @@ export class ProductService extends BaseService<Product> {
 				Price: rq.Price,
 				Stock: rq.Stock,
 				Image: rq.Image,
-				UserId: Number(this.authService.getToken().id),
+				UserId: Number(rq.UserId),
 			});
 
 			const product = await this.productRepository.create(productToCreate, manager);
