@@ -1,6 +1,5 @@
 {
 	"name": "trabajopracticottads",
-	"type": "module",
 	"version": "1.0.0",
 	"description": "Market Place",
 	"main": "index.js",
@@ -72,8 +71,7 @@
 		"pg": "^8.14.1",
 		"reflect-metadata": "^0.2.2",
 		"tsyringe": "^4.10.0",
-		"typeorm": "^0.3.21",
-		"zod": "^3.22.2"
+		"typeorm": "^0.3.21"
 	},
 	"husky": {
 		"hooks": {
