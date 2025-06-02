@@ -10,6 +10,7 @@ import {
 	IOrderGetAllResponse,
 	IOrderGetOneResponse,
 	IOrderResponse,
+	IOrderUpdateRequest,
 	OrderEnum,
 } from "../types/IOrder";
 import { inject, injectable } from "tsyringe";
@@ -282,6 +283,45 @@ export class OrderService {
 			await queryRunner.rollbackTransaction();
 			console.log(e);
 			return createErrorResponse("Error creando la orden");
+		} finally {
+			await queryRunner.release();
+		}
+	}
+
+	async update(id: string, rq: IOrderUpdateRequest): Promise<IBaseResponse<IOrderResponse | null>> {
+		// Crear queryRunner
+		const queryRunner = this.db.createQueryRunner();
+		await queryRunner.connect();
+		await queryRunner.startTransaction();
+		const manager = queryRunner.manager;
+
+		try {
+			const prevOrder = await this.orderRepository.getById(Number(id));
+
+			if (!prevOrder) {
+				await queryRunner.rollbackTransaction();
+				return createErrorResponse("Error al editar la orden", {
+					code: 404,
+					message: Messages.Error.EntityNotFound("Orden", true),
+				});
+			}
+
+			// TODO: Rest of props
+			prevOrder.ShippingAddress = rq.Address;
+
+			this.orderRepository.update(id, prevOrder, manager);
+
+			await queryRunner.commitTransaction();
+
+			return createSuccessResponse<IOrderResponse>(Messages.CRUD.EntityUpdated("Orden", true), {
+				id: prevOrder.Id!.toString(),
+				// name: prevOrder.Name,
+				createdAt: formatDateToArgentina(prevOrder.CreatedAt!),
+			});
+		} catch (e) {
+			await queryRunner.rollbackTransaction();
+			console.log(e);
+			return createErrorResponse("Error creando categoría");
 		} finally {
 			await queryRunner.release();
 		}
