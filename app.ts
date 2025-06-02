@@ -6,7 +6,7 @@ import cors from "cors";
 import "./config/env";
 
 // Database config
-import { createDatabaseIfNotExists, db } from "./config/database.js";
+import { createDatabaseIfNotExists, db } from "./config/database";
 
 // Routes config
 import createRoutes from "./routes/index.js";
