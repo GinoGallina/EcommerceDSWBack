@@ -1,14 +1,11 @@
-import { IToken } from "./shared/IToken";
-
 // Login
 export interface ILoginRequest {
 	email: string;
 	password: string;
 }
 
-export interface ILoginResponse extends IToken {
+export interface ILoginResponse {
 	token: string;
-	sessionExpiration: string;
 }
 
 // Register
@@ -24,7 +21,6 @@ export interface IRegisterRequest {
 	Cuit?: string; // Seller
 }
 
-export interface IRegisterResponse extends IToken {
+export interface IRegisterResponse {
 	token: string;
-	sessionExpiration: string;
 }

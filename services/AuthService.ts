@@ -24,13 +24,12 @@ export class AuthService {
 
 	buildToken(id: number, roles: string[], address: string, email: string, username: string) {
 		const expiresInSeconds = 24 * 60 * 60;
-		const expirationDate = new Date(Date.now() + expiresInSeconds * 1000);
 
 		const token = jwt.sign({ id, roles, address, email, username }, process.env.JWT_SECRET!, {
 			expiresIn: expiresInSeconds,
 		});
 
-		return { token, expirationDate };
+		return token;
 	}
 
 	getToken(): IUserToken {
@@ -79,7 +78,7 @@ export class AuthService {
 
 			await queryRunner.commitTransaction();
 
-			const { token, expirationDate } = this.buildToken(
+			const token = this.buildToken(
 				Number(user.data.id),
 				user.data.roles,
 				user.data.address,
@@ -88,14 +87,6 @@ export class AuthService {
 			);
 
 			return createSuccessResponse<IRegisterResponse>(Messages.CRUD.EntityCreated("Usuario", true), {
-				user: {
-					id: user.data.id,
-					roles: user.data.roles,
-					username: user.data.username,
-					email: user.data.email,
-					address: user.data.address,
-				},
-				sessionExpiration: expirationDate.toISOString(),
 				token,
 			});
 		} catch (e) {
@@ -132,7 +123,7 @@ export class AuthService {
 			}
 
 			// JWT
-			const { token, expirationDate } = this.buildToken(
+			const token = this.buildToken(
 				user.Id!,
 				user.Roles.map((x) => x.Name),
 				user.Address,
@@ -141,14 +132,6 @@ export class AuthService {
 			);
 
 			return createSuccessResponse<ILoginResponse>("Inicio de sesión correcto", {
-				user: {
-					id: user.Id!.toString(),
-					roles: user.Roles.map((x) => x.Name),
-					username: user.Username,
-					email: user.Email,
-					address: user.Address,
-				},
-				sessionExpiration: expirationDate.toISOString(),
 				token,
 			});
 		} catch (e) {
