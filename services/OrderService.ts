@@ -22,9 +22,22 @@ import { RoleEnum } from "../types/IRole";
 import { formatDateToArgentina } from "../utils/DateFormatter";
 import { ProductRepository } from "../repository/ProductRepository";
 import { PaymentTypeRepository } from "../repository/PaymentTypeRepository";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 @injectable()
-export class OrderService {
+export class OrderService
+	implements
+		IBaseCRUDService<
+			IGenericGetAllRequest,
+			IOrderGetAllResponse,
+			IOrderGetOneResponse,
+			IOrderCreateRequest,
+			IOrderResponse,
+			IOrderUpdateRequest,
+			IOrderResponse,
+			IGenericDeleteResponse
+		>
+{
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("OrderRepository") private readonly orderRepository: OrderRepository,
@@ -52,7 +65,7 @@ export class OrderService {
 				});
 			}
 
-			const orderItem = prevOrder.OrderItems.find((x) => x.ProductId === Number(rq.ProductId));
+			const orderItem = prevOrder.OrderItems.find((x) => x.Id === Number(rq.OrderItemId));
 
 			if (!orderItem) {
 				await queryRunner.rollbackTransaction();
@@ -70,7 +83,7 @@ export class OrderService {
 				prevOrder.CanceledAt = new Date();
 			}
 
-			await this.orderRepository.update(id, prevOrder, manager);
+			await this.orderRepository.update(prevOrder, manager);
 
 			await queryRunner.commitTransaction();
 
@@ -120,7 +133,7 @@ export class OrderService {
 
 			prevOrder.OrderItems.forEach((x) => (x.Status = OrderItemEnum.Canceled));
 
-			await this.orderRepository.update(id, prevOrder, manager);
+			await this.orderRepository.update(prevOrder, manager);
 
 			await queryRunner.commitTransaction();
 
@@ -173,9 +186,7 @@ export class OrderService {
 
 	async getOne(id: string): Promise<IBaseResponse<IOrderGetOneResponse | null>> {
 		try {
-			const order = await this.orderRepository.getById(Number(id), {
-				relations: { PaymentType: true, OrderItems: { Product: { User: true } }, User: true },
-			});
+			const order = await this.orderRepository.getByIdIncludingDeletedRelations(Number(id));
 
 			if (!order)
 				return createErrorResponse("Orden no encontrada", {
@@ -191,6 +202,7 @@ export class OrderService {
 				total: order.TotalPrice,
 				user: this.authService.getToken().roles.includes(RoleEnum.Admin) ? (order.User?.Username ?? "") : "",
 				items: order.OrderItems.map((x) => ({
+					id: x.Id?.toString() || "",
 					product: x.Product?.Name || "",
 					productId: x.Product?.Id?.toString() || "",
 					quantity: x.Quantity,
@@ -308,8 +320,9 @@ export class OrderService {
 
 			// TODO: Rest of props
 			prevOrder.ShippingAddress = rq.Address;
+			prevOrder.PaymentTypeId = Number(rq.PaymentTypeId);
 
-			this.orderRepository.update(id, prevOrder, manager);
+			this.orderRepository.update(prevOrder, manager);
 
 			await queryRunner.commitTransaction();
 
@@ -327,7 +340,6 @@ export class OrderService {
 		}
 	}
 
-	// TODO
 	async delete(id: string): Promise<IBaseResponse<IGenericDeleteResponse | null>> {
 		// Crear queryRunner
 		const queryRunner = this.db.createQueryRunner();

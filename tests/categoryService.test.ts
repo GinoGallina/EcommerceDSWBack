@@ -1,7 +1,7 @@
 import { CategoryService } from "../services/CategoryService";
 import { CategoryRepository } from "../repository/CategoryRepository";
 import { DataSource, QueryRunner } from "typeorm";
-// import { Category } from "../models/database/Category";
+import { ProductRepository } from "../repository/ProductRepository";
 
 const mockQueryRunner = {
 	connect: jest.fn(),
@@ -28,12 +28,24 @@ const mockCategoryRepo = {
 	delete: jest.fn(),
 } as unknown as CategoryRepository;
 
+const mockProductRepo = {
+	getRepo: jest.fn(),
+	getAll: jest.fn(),
+	getById: jest.fn(),
+	getCombo: jest.fn(),
+	existsBy: jest.fn(),
+	existsById: jest.fn(),
+	create: jest.fn(),
+	update: jest.fn(),
+	delete: jest.fn(),
+} as unknown as ProductRepository;
+
 describe("CategoryService", () => {
 	let service: CategoryService;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		service = new CategoryService(mockDataSource, mockCategoryRepo);
+		service = new CategoryService(mockDataSource, mockCategoryRepo, mockProductRepo);
 	});
 
 	describe("getAll", () => {

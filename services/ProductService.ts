@@ -1,4 +1,4 @@
-import { DataSource, QueryRunner } from "typeorm";
+import { DataSource, In, Not, QueryRunner } from "typeorm";
 import { ProductRepository } from "../repository/ProductRepository";
 import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResponse";
 import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
@@ -11,29 +11,41 @@ import {
 	IProductGetOneResponse,
 	IProductGetDetailsResponse,
 	IMyProductGetAllResponse,
+	IProductUpdateRequest,
 } from "../types/IProduct";
 import { validateFields } from "../utils/ServiceHelpers";
 import { CategoryService } from "./CategoryService";
 import { UserService } from "./UserService";
 import { injectable, inject } from "tsyringe";
-import { BaseService } from "./BaseService";
 import { Product } from "../models/database/Product";
 import { Review } from "../models/database/Review";
 import { formatDateToArgentina } from "../utils/DateFormatter";
 import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
-import { AuthService } from "./AuthService";
+import { OrderRepository } from "../repository/OrderRepository";
+import { OrderItemEnum } from "../types/IOrderItem";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 @injectable()
-export class ProductService extends BaseService<Product> {
+export class ProductService
+	implements
+		IBaseCRUDService<
+			IGenericGetAllRequest,
+			IProductGetAllResponse,
+			IProductGetOneResponse,
+			IProductCreateRequest,
+			IProductResponse,
+			IProductUpdateRequest,
+			IProductResponse,
+			IGenericDeleteResponse
+		>
+{
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("ProductRepository") private readonly productRepository: ProductRepository,
+		@inject("OrderRepository") private readonly orderRepository: OrderRepository,
 		@inject("CategoryService") private readonly categoryService: CategoryService,
 		@inject("UserService") private readonly userService: UserService,
-		@inject("AuthService") private readonly authService: AuthService,
-	) {
-		super(productRepository.getRepo());
-	}
+	) {}
 
 	validateProduct = async (rq: IProductCreateRequest, queryRunner: QueryRunner, id?: string) => {
 		const validationRules = [
@@ -324,7 +336,7 @@ export class ProductService extends BaseService<Product> {
 			prevProduct.Stock = rq.Stock;
 			prevProduct.Image = rq.Image;
 
-			this.productRepository.update(id, prevProduct, manager);
+			this.productRepository.update(prevProduct, manager);
 
 			await queryRunner.commitTransaction();
 
@@ -363,6 +375,24 @@ export class ProductService extends BaseService<Product> {
 				return createErrorResponse("Error al borrar el producto", {
 					code: 404,
 					message: Messages.Error.EntityNotFound("Producto"),
+				});
+			}
+
+			// Prevent deleting a product of an order where product is not delivered or pending
+			const ordersWithProduct = await this.orderRepository.findAll({
+				where: {
+					OrderItems: {
+						ProductId: Number(id),
+						Status: Not(In([OrderItemEnum.Delivered, OrderItemEnum.Canceled])),
+					},
+				},
+			});
+
+			if (ordersWithProduct.totalCount > 0) {
+				await queryRunner.rollbackTransaction();
+				return createErrorResponse("Error al borrar el producto", {
+					code: 500,
+					message: "El producto se encuntra pendiente de entrega en al menos una orden.",
 				});
 			}
 

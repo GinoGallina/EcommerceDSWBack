@@ -29,7 +29,7 @@ export class ProductController extends BaseController<
 	}
 
 	getDetails = async (req: Request<{ id: string }>, res: Response) => {
-		const response = await this.service.getDetails(req.params.id);
+		const response = await this.productService.getDetails(req.params.id);
 		res.status(response.success ? 200 : (response.error?.code ?? 500)).json(response);
 	};
 

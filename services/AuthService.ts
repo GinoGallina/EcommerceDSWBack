@@ -39,9 +39,7 @@ export class AuthService {
 			throw new Error("No se ha podido encontrar el token");
 		}
 
-		const user = req.auth as IUserToken;
-
-		return user;
+		return req.auth as IUserToken;
 	}
 
 	async register(rq: IRegisterRequest): Promise<IBaseResponse<IRegisterResponse | null>> {

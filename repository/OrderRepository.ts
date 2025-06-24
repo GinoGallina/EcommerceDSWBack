@@ -1,4 +1,4 @@
-import { FindOptionsWhere, IsNull, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Order } from "../models/database/Order";
 import { createValidOrderColumns, getAllPaginationOptions } from "../utils/RepositoryHelpers";
 import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
@@ -20,28 +20,46 @@ export class OrderRepository extends BaseRepository<Order> {
 
 	async getAll(query: IGenericGetAllRequest): Promise<{ items: Order[]; totalCount: number }> {
 		const validOrderColumns = createValidOrderColumns<Order>(["TotalPrice", "CreatedAt"]);
-
 		const { skip, take, order } = getAllPaginationOptions<Order>(query, validOrderColumns);
-
 		const token = this.authService.getToken();
 
-		const whereCondition: FindOptionsWhere<Order> = {
-			DeletedAt: IsNull(),
-		};
+		// Using createQueryBuilder to get deleted Users data
+		const qb = this.orderRepository
+			.createQueryBuilder("order")
+			.withDeleted()
+			.leftJoinAndSelect("order.PaymentType", "paymentType")
+			.leftJoinAndSelect("order.User", "user")
+			.leftJoinAndSelect("order.OrderItems", "orderItems")
+			.where("order.DeletedAt IS NULL");
 
 		if (!token.roles.includes(RoleEnum.Admin)) {
-			whereCondition.UserId = Number(token.id);
+			qb.andWhere("order.UserId = :userId", { userId: Number(token.id) });
 		}
 
-		const [items, totalCount] = await this.orderRepository.findAndCount({
-			where: whereCondition,
-			relations: ["PaymentType", "User", "OrderItems"],
-			select: { Id: true, Status: true, ShippingAddress: true, TotalPrice: true, CreatedAt: true },
-			order,
-			skip,
-			take,
-		});
+		for (const [column, direction] of Object.entries(order)) {
+			qb.addOrderBy(`order.${column}`, direction.toUpperCase() as "ASC" | "DESC");
+		}
 
+		qb.skip(skip).take(take);
+
+		const [items, totalCount] = await qb.getManyAndCount();
 		return { items, totalCount };
+	}
+
+	async getByIdIncludingDeletedRelations(id: number): Promise<Order | null> {
+		// Using createQueryBuilder to get deleted Users, Product and Payement Type data
+		const query = this.orderRepository
+			.createQueryBuilder("order")
+			.withDeleted()
+			.leftJoinAndSelect("order.PaymentType", "paymentType")
+			.leftJoinAndSelect("order.OrderItems", "orderItems")
+			.leftJoinAndSelect("orderItems.Product", "product")
+			.leftJoinAndSelect("product.User", "productUser")
+			.leftJoinAndSelect("order.User", "user")
+			.where("order.Id = :id", { id })
+			.andWhere("order.DeletedAt IS NULL");
+
+		const order = await query.getOne();
+		return order ?? null;
 	}
 }

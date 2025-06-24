@@ -19,18 +19,28 @@ import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { IGetCombo } from "../types/shared/IGetCombo";
 import { inject, injectable } from "tsyringe";
 import { User } from "../models/database/User";
-import { BaseService } from "./BaseService";
 import { formatDateToArgentina } from "../utils/DateFormatter";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 @injectable()
-export class UserService extends BaseService<User> {
+export class UserService
+	implements
+		IBaseCRUDService<
+			IGenericGetAllRequest,
+			IUserGetAllResponse,
+			IUserResponse,
+			IUserCreateRequest,
+			IUserResponse,
+			IUserUpdateRequest,
+			IUserResponse,
+			IGenericDeleteResponse
+		>
+{
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("UserRepository") private readonly userRepository: UserRepository,
 		@inject("RoleTypeORMRepository") private readonly roleRepository: Repository<Role>,
-	) {
-		super(userRepository.getRepo());
-	}
+	) {}
 
 	validateUser = async (rq: IUserCreateRequest, queryRunner: QueryRunner, id?: string) => {
 		const validationRules = [
@@ -313,7 +323,7 @@ export class UserService extends BaseService<User> {
 			prevUser.StoreName = rq.StoreName;
 			prevUser.Roles = roles;
 
-			await this.userRepository.update(id, prevUser, manager);
+			await this.userRepository.update(prevUser, manager);
 
 			await queryRunner.commitTransaction();
 

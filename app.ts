@@ -31,9 +31,6 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-// TODO
-// app.use(helmet()); // Agrega encabezados de seguridad HTTP
-// app.use(cors({ origin: process.env.ALLOWED_ORIGINS?.split(",") || "*" })); // Restringe accesos
 app.disable("x-powered-by");
 
 const PORT = Number(process.env.PORT) || 3000;

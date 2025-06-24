@@ -12,18 +12,15 @@ import { Messages } from "../const/Messages";
 import { IGetCombo } from "../types/shared/IGetCombo";
 import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
-import { BaseService } from "./BaseService";
 import { PaymentType } from "../models/database/PaymentType";
 import { formatDateToArgentina } from "../utils/DateFormatter";
 
 @injectable()
-export class PaymentTypeService extends BaseService<PaymentType> {
+export class PaymentTypeService {
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("PaymentTypeRepository") private readonly paymentTypeRepository: PaymentTypeRepository,
-	) {
-		super(paymentTypeRepository.getRepo());
-	}
+	) {}
 
 	async validatePaymentType(rq: IPaymentTypeCreateRequest | IPaymentTypeUpdateRequest, queryRunner: QueryRunner, id?: string) {
 		// Validate request
@@ -168,7 +165,7 @@ export class PaymentTypeService extends BaseService<PaymentType> {
 
 			prevPaymentType.Name = rq.Name;
 
-			const paymentType = await this.paymentTypeRepository.update(id, prevPaymentType, manager);
+			const paymentType = await this.paymentTypeRepository.update(prevPaymentType, manager);
 
 			if (!paymentType) {
 				await queryRunner.rollbackTransaction();

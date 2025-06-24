@@ -10,21 +10,31 @@ import { IBaseResponse, IGenericDeleteResponse } from "../types/shared/IBaseResp
 import { createErrorResponse, createSuccessResponse } from "../utils/ResponseHelpers";
 import { Messages } from "../const/Messages";
 import { inject, injectable } from "tsyringe";
-import { BaseService } from "./BaseService";
 import { Review } from "../models/database/Review";
 import { ReviewRepository } from "../repository/ReviewRepository";
 import { AuthService } from "./AuthService";
 import { formatDateToArgentina } from "../utils/DateFormatter";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 @injectable()
-export class ReviewService extends BaseService<Review> {
+export class ReviewService
+	implements
+		IBaseCRUDService<
+			IReviewGetAllRequest,
+			IReviewGetAllResponse,
+			IReviewResponse,
+			IReviewCreateRequest,
+			IReviewResponse,
+			IReviewUpdateRequest,
+			IReviewResponse,
+			IGenericDeleteResponse
+		>
+{
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("ReviewRepository") private readonly reviewRepository: ReviewRepository,
 		@inject("AuthService") private readonly authService: AuthService,
-	) {
-		super(reviewRepository.getRepo());
-	}
+	) {}
 
 	async validateReview(rq: IReviewCreateRequest | IReviewUpdateRequest, queryRunner: QueryRunner) {
 		if (!rq.Description) {
@@ -160,7 +170,7 @@ export class ReviewService extends BaseService<Review> {
 			prevReview.Description = rq.Description;
 			prevReview.Rate = rq.Rate;
 
-			this.reviewRepository.update(id, prevReview, manager);
+			this.reviewRepository.update(prevReview, manager);
 
 			await queryRunner.commitTransaction();
 

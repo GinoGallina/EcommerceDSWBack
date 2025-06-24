@@ -19,23 +19,6 @@ export class BaseRepository<T extends BaseModel> {
 		return manager ? manager.getRepository(this.entity) : this.repository;
 	}
 
-	async getById(
-		id: number,
-		options?: {
-			includeDeleted?: boolean;
-			select?: FindOptionsSelect<T>;
-			relations?: FindOptionsRelations<T>;
-		},
-	): Promise<T | null> {
-		const finalWhere = options?.includeDeleted ? { Id: id } : { Id: id, DeletedAt: IsNull() };
-
-		return await this.repository.findOne({
-			where: finalWhere as FindOptionsWhere<T>,
-			select: options?.select && { ...options.select, Id: true },
-			relations: options?.relations,
-		});
-	}
-
 	async findOneBy(
 		where: FindOptionsWhere<T>,
 		options?: {
@@ -108,11 +91,28 @@ export class BaseRepository<T extends BaseModel> {
 	}
 
 	// CRUD
+	async getById(
+		id: number,
+		options?: {
+			includeDeleted?: boolean;
+			select?: FindOptionsSelect<T>;
+			relations?: FindOptionsRelations<T>;
+		},
+	): Promise<T | null> {
+		const finalWhere = options?.includeDeleted ? { Id: id } : { Id: id, DeletedAt: IsNull() };
+
+		return await this.repository.findOne({
+			where: finalWhere as FindOptionsWhere<T>,
+			select: options?.select && { ...options.select, Id: true },
+			relations: options?.relations,
+		});
+	}
+
 	async create(data: T, manager?: EntityManager): Promise<T> {
 		return await this.getRepo(manager).save(data);
 	}
 
-	async update(id: string, data: T, manager?: EntityManager): Promise<T | null> {
+	async update(data: T, manager?: EntityManager): Promise<T | null> {
 		const repo = this.getRepo(manager);
 
 		return await repo.save(data);

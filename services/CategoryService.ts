@@ -8,17 +8,29 @@ import { IGetCombo } from "../types/shared/IGetCombo";
 import { IGenericGetAllRequest } from "../types/shared/IBaseRequest";
 import { inject, injectable } from "tsyringe";
 import { Category } from "../models/database/Category";
-import { BaseService } from "./BaseService";
 import { formatDateToArgentina } from "../utils/DateFormatter";
+import { ProductRepository } from "../repository/ProductRepository";
+import { IBaseCRUDService } from "../types/shared/IBaseCRUDService";
 
 @injectable()
-export class CategoryService extends BaseService<Category> {
+export class CategoryService
+	implements
+		IBaseCRUDService<
+			IGenericGetAllRequest,
+			ICategoryGetAllResponse,
+			ICategoryResponse,
+			ICategoryCreateRequest,
+			ICategoryResponse,
+			ICategoryUpdateRequest,
+			ICategoryResponse,
+			IGenericDeleteResponse
+		>
+{
 	constructor(
 		@inject("DataSource") private readonly db: DataSource,
 		@inject("CategoryRepository") private readonly categoryRepository: CategoryRepository,
-	) {
-		super(categoryRepository.getRepo());
-	}
+		@inject("ProductRepository") private readonly productRepository: ProductRepository,
+	) {}
 
 	async validateCategory(rq: ICategoryUpdateRequest | ICategoryCreateRequest, queryRunner: QueryRunner, id?: string) {
 		// Validate request
@@ -161,7 +173,7 @@ export class CategoryService extends BaseService<Category> {
 
 			prevCategory.Name = rq.Name;
 
-			this.categoryRepository.update(id, prevCategory, manager);
+			this.categoryRepository.update(prevCategory, manager);
 
 			await queryRunner.commitTransaction();
 
@@ -193,6 +205,21 @@ export class CategoryService extends BaseService<Category> {
 				return createErrorResponse("Error al borrar la categoría", {
 					code: 404,
 					message: Messages.Error.EntityNotFound("Categoría", true),
+				});
+			}
+
+			const productWithCategory = await this.productRepository.findAll({
+				where: {
+					CategoryId: Number(id),
+				},
+			});
+
+			if (productWithCategory.totalCount > 0) {
+				await queryRunner.rollbackTransaction();
+				return createErrorResponse("Error al borrar la categoría", {
+					code: 500,
+					message:
+						"No se puede eliminar la categoría porque está asociada a uno o más productos. Edite esos productos antes de continuar.",
 				});
 			}
 

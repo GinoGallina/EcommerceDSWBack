@@ -38,6 +38,7 @@ export interface IOrderGetOneResponse {
 		imagen?: string;
 		user: string;
 		price: number;
+		id: string;
 	}[];
 }
 
@@ -62,7 +63,7 @@ export interface IOrderUpdateRequest {
 
 // Cancel
 export interface IOrderCancelProductRequest {
-	ProductId: string;
+	OrderItemId: string;
 }
 export interface IOrderCancelOrderResponse {
 	id: string;
