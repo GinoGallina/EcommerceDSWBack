@@ -29,7 +29,12 @@ requiredEnvVars.forEach((varName) => {
 const app = express();
 
 app.use(json());
-app.use(cors());
+app.use(
+	cors({
+		origin: "https://ecommerce-dsw-front.vercel.app",
+		credentials: true,
+	}),
+);
 
 app.disable("x-powered-by");
 
