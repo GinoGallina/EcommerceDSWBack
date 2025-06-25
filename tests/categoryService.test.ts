@@ -31,6 +31,7 @@ const mockCategoryRepo = {
 const mockProductRepo = {
 	getRepo: jest.fn(),
 	getAll: jest.fn(),
+	findAll: jest.fn(),
 	getById: jest.fn(),
 	getCombo: jest.fn(),
 	existsBy: jest.fn(),
@@ -161,11 +162,22 @@ describe("CategoryService", () => {
 	describe("delete", () => {
 		it("should delete a category", async () => {
 			mockCategoryRepo.existsById = jest.fn().mockResolvedValue(true);
+
+			mockProductRepo.findAll = jest.fn().mockResolvedValue({
+				items: [],
+				totalCount: 0,
+			});
+
 			mockCategoryRepo.delete = jest.fn().mockResolvedValue(true);
 
 			const result = await service.delete("1");
 
-			expect(mockCategoryRepo.delete).toHaveBeenCalledWith("1", expect.anything());
+			expect(mockQueryRunner.startTransaction).toHaveBeenCalled();
+			expect(mockProductRepo.findAll).toHaveBeenCalledWith({
+				where: { CategoryId: 1 },
+			});
+			expect(mockCategoryRepo.delete).toHaveBeenCalledWith("1", mockQueryRunner.manager);
+			expect(mockQueryRunner.commitTransaction).toHaveBeenCalled();
 			expect(result.message).toBe("Categoría eliminada correctamente.");
 			expect(result.success).toBe(true);
 		});
@@ -175,8 +187,25 @@ describe("CategoryService", () => {
 
 			const result = await service.delete("99");
 
+			expect(mockQueryRunner.rollbackTransaction).toHaveBeenCalled();
 			expect(result.success).toBe(false);
 			expect(result.error?.code).toBe(404);
+		});
+
+		it("should return error if category has products", async () => {
+			mockCategoryRepo.existsById = jest.fn().mockResolvedValue(true);
+
+			mockProductRepo.findAll = jest.fn().mockResolvedValue({
+				items: [{ id: 1, name: "Producto asociado" }],
+				totalCount: 1,
+			});
+
+			const result = await service.delete("1");
+
+			expect(mockQueryRunner.rollbackTransaction).toHaveBeenCalled();
+			expect(result.success).toBe(false);
+			expect(result.error?.code).toBe(500);
+			expect(result.error?.message).toMatch(/no se puede eliminar la categoría/i);
 		});
 	});
 });
