@@ -85,6 +85,13 @@ export class OrderService
 
 			await this.orderRepository.update(prevOrder, manager);
 
+			// Add stock
+			const product = await this.productRepository.getById(orderItem.ProductId);
+			if (product) {
+				product.Stock = product.Stock + orderItem.Quantity;
+				await this.productRepository.update(product, manager);
+			}
+
 			await queryRunner.commitTransaction();
 
 			return createSuccessResponse<IOrderCancelOrderResponse>("Producto cancelado de la orden correctamente.", {
@@ -132,6 +139,15 @@ export class OrderService
 			prevOrder.CanceledAt = new Date();
 
 			prevOrder.OrderItems.forEach((x) => (x.Status = OrderItemEnum.Canceled));
+
+			// Add stock
+			prevOrder.OrderItems.forEach(async (x) => {
+				const product = await this.productRepository.getById(x.ProductId);
+				if (product) {
+					product.Stock = product.Stock + x.Quantity;
+					await this.productRepository.update(product, manager);
+				}
+			});
 
 			await this.orderRepository.update(prevOrder, manager);
 
@@ -236,10 +252,6 @@ export class OrderService
 
 			// Check all products exist
 			const products = await this.productRepository.findAll({
-				select: {
-					Id: true,
-					Price: true,
-				},
 				where: { Id: In(rq.Items.map((x) => Number(x.ProductId))) },
 			});
 
@@ -258,6 +270,20 @@ export class OrderService
 				return createErrorResponse("Error al crear la orden", {
 					code: 400,
 					message: Messages.Error.FieldGreaterThanZero("cantidad"),
+				});
+			}
+
+			// Check stocks
+			const invalidStock = rq.Items.find(
+				(x) => x.Quantity > (products.items.find((y) => y.Id! === Number(x.ProductId))?.Stock || 0),
+			);
+			const invalidProduct = products.items.find((x) => x.Id === Number(invalidStock?.ProductId));
+
+			if (invalidStock) {
+				await queryRunner.rollbackTransaction();
+				return createErrorResponse("Error al crear la orden", {
+					code: 400,
+					message: "El producto " + invalidProduct?.Name + " cuenta con un stock de " + invalidProduct?.Stock,
 				});
 			}
 
@@ -284,6 +310,12 @@ export class OrderService
 			});
 
 			const order = await this.orderRepository.create(orderToCreate, manager);
+
+			// Substract stock
+			products.items.forEach(async (x) => {
+				x.Stock = x.Stock - (rq.Items.find((y) => Number(y.ProductId) === x.Id)?.Quantity || 0);
+				await this.productRepository.update(x, manager);
+			});
 
 			await queryRunner.commitTransaction();
 
