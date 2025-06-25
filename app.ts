@@ -29,9 +29,17 @@ requiredEnvVars.forEach((varName) => {
 const app = express();
 
 app.use(json());
+const allowedOrigins = ["http://localhost:5173", "https://ecommerce-dsw-front.vercel.app"];
+
 app.use(
 	cors({
-		origin: "https://ecommerce-dsw-front.vercel.app",
+		origin: (origin, callback) => {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error("No permitido por CORS"));
+			}
+		},
 		credentials: true,
 	}),
 );
